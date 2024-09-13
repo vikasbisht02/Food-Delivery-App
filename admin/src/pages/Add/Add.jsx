@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./Add.css";
 import { assets } from "../../assets/assets";
 import { useState } from "react";

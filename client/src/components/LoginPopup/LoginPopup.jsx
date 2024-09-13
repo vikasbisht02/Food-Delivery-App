@@ -1,16 +1,15 @@
 import { useContext, useState } from "react";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
-import {StoreContext} from "../../context/StoreContext"
+import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-import {toast} from "react-toastify";
-
+import { toast } from "react-toastify";
 
 const LoginPopup = ({ setShowLogin }) => {
-
-  const {url, setToken} = useContext(StoreContext);
+  const { url, setToken } = useContext(StoreContext);
 
   const [currState, setCurrState] = useState("Sign Up");
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -25,27 +24,32 @@ const LoginPopup = ({ setShowLogin }) => {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loader
     let newUrl = url;
-    if(currState === "Login") {
-      newUrl += "/api/user/login"
+    if (currState === "Login") {
+      newUrl += "/api/user/login";
     } else {
-      newUrl += "/api/user/register"
+      newUrl += "/api/user/register";
     }
 
-    const response = await axios.post(newUrl,data);
-    if(response.data.success) {
+    try {
+      const response = await axios.post(newUrl, data);
+      if (response.data.success) {
+        toast.success(
+          currState === "Sign Up" ? "Account created successfully!" : "Logged in successfully!"
+        );
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         setShowLogin(false);
-        
-    } 
-    else {
-        alert("Try Again")
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong, please try again.");
+    } finally {
+      setIsLoading(false); // Stop loader
     }
-
-
-  }
-  
+  };
 
   return (
     <div className="login-popup">
@@ -55,13 +59,11 @@ const LoginPopup = ({ setShowLogin }) => {
           <img
             onClick={() => setShowLogin(false)}
             src={assets.cross_icon}
-            alt=""
+            alt="Close"
           />
         </div>
         <div className="login-popup-inputs">
-          {currState === "Login" ? (
-            <></>
-          ) : (
+          {currState === "Login" ? null : (
             <input
               type="text"
               name="name"
@@ -88,14 +90,22 @@ const LoginPopup = ({ setShowLogin }) => {
             required
           />
         </div>
-        <button type="submit">{currState === "Sign Up" ? "Create account" : "Login"}</button>
+        <button type="submit" disabled={isLoading} className="loaderButton">
+          {isLoading ? (
+            <div className="loader"></div>
+          ) : currState === "Sign Up" ? (
+            "Create account"
+          ) : (
+            "Login"
+          )}
+        </button>
 
         {currState === "Sign Up" ? (
           <div>
             <div className="login-popup-condition">
-              <input type="checkbox"  required />
+              <input type="checkbox" required />
               <p>
-                By continuing, i agree ti the terms of use & privacy policy.
+                By continuing, I agree to the terms of use & privacy policy.
               </p>
             </div>
             <p className="page">
@@ -106,7 +116,7 @@ const LoginPopup = ({ setShowLogin }) => {
         ) : (
           <p>
             Already have an account?{" "}
-            <span onClick={() => setCurrState("Sign Up")}>Login here</span>
+            <span onClick={() => setCurrState("Sign Up")}>Sign up here</span>
           </p>
         )}
       </form>
