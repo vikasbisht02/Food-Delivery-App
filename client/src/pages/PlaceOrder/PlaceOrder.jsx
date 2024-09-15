@@ -8,6 +8,8 @@ const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
 
+  const [payMethod, setPayMethod] = useState("cod"); // Default payment method is COD
+
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -31,7 +33,7 @@ const PlaceOrder = () => {
   const placeOrder = async (e) => {
     e.preventDefault();
     let orderItems = [];
-    food_list.map((item) => {
+    food_list.forEach((item) => {
       if (cartItems[item._id] > 0) {
         let itemInfo = item;
         itemInfo["quantity"] = cartItems[item._id];
@@ -41,16 +43,21 @@ const PlaceOrder = () => {
     let orderData = {
       address: data,
       items: orderItems,
-      amount: getTotalCartAmount() + 2,
+      amount: getTotalCartAmount() + 50, // Assuming a delivery fee of 50
+      paymentMethod: payMethod, // Include the payment method
     };
-    let response = await axios.post(url + "/api/order/place", orderData, {
-      headers: { token },
-    });
-    if (response.data.success) {
-      const { session_url } = response.data;
-      window.location.replace(session_url);
-    } else {
-      alert("Error, Try Again Later");
+    try {
+      let response = await axios.post(url + "/api/order/place", orderData, {
+        headers: { token },
+      });
+      if (response.data.success) {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      } else {
+        alert("Error, Try Again Later");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
     }
   };
 
@@ -60,7 +67,7 @@ const PlaceOrder = () => {
     } else if (getTotalCartAmount() === 0) {
       navigate("/cart");
     }
-  }, [token]);
+  }, [token, navigate, getTotalCartAmount]);
 
   return (
     <form className="place-order" onSubmit={placeOrder}>
@@ -169,6 +176,23 @@ const PlaceOrder = () => {
               )}
             </div>
           </div>
+
+          <div>
+            <h3 className="paymentMethod">Payment Method</h3>
+            <div
+              className={`cod ${payMethod === "cod" ? "selected" : ""}`}
+              onClick={() => setPayMethod("cod")}
+            >
+              Cash On Delivery (COD)
+            </div>
+            <div
+              className={`stripe ${payMethod === "stripe" ? "selected" : ""}`}
+              onClick={() => setPayMethod("stripe")}
+            >
+              Stripe (Credit or Debit)
+            </div>
+          </div>
+
           <button type="submit">PROCEED TO CHECKOUT</button>
         </div>
       </div>
