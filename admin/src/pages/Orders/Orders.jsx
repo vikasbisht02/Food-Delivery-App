@@ -46,7 +46,7 @@ const Orders = ({ url }) => {
     <div className="order add">
       <h3>Order Page</h3>
       <div className="order-list">
-        {orders.map((order, index) => (
+       {orders ? <div> {orders.map((order, index) => (
           <div className="order-item" key={index}>
             <img src={assets.parcel_icon} alt="Parcel Icon" />
             <div>
@@ -86,7 +86,7 @@ const Orders = ({ url }) => {
               <option value="Delivered">Delivered</option>
             </select>
           </div>
-        ))}
+        ))}</div>  : <p>Not Orders</p>}
       </div>
     </div>
   );
