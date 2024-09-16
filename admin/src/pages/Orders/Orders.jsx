@@ -7,9 +7,17 @@ import { assets } from "../../assets/assets";
 const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
 
+  // Fetch token from local storage
+  const token = localStorage.getItem("token");
+
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(`${url}/api/order/list`);
+      // Add the token to the request header
+      const response = await axios.get(`${url}/api/order/list`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token in the Authorization header
+        },
+      });
       if (response.data.success) {
         // Ensure response.data.data is an array
         setOrders(Array.isArray(response.data.data) ? response.data.data : []);
@@ -25,10 +33,19 @@ const Orders = ({ url }) => {
 
   const statusHandler = async (e, orderId) => {
     try {
-      const response = await axios.post(`${url}/api/order/status`, {
-        orderId,
-        status: e.target.value,
-      });
+      // Add the token to the request header
+      const response = await axios.post(
+        `${url}/api/order/status`,
+        {
+          orderId,
+          status: e.target.value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          },
+        }
+      );
 
       if (response.data.success) {
         await fetchAllOrders();

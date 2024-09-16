@@ -21,7 +21,7 @@ const StoreContextProvider = (props) => {
         await axios.post(
           `${url}/api/cart/add`,
           { itemId },
-          { headers: { token } }
+          { headers: { Authorization: `Bearer ${token}` } } // Use the correct Authorization header
         );
       } catch (error) {
         console.error("Error adding item to cart:", error.response?.data || error.message);
@@ -46,7 +46,7 @@ const StoreContextProvider = (props) => {
         await axios.post(
           `${url}/api/cart/remove`,
           { itemId },
-          { headers: { token } }
+          { headers: { Authorization: `Bearer ${token}` } } // Use the correct Authorization header
         );
       } catch (error) {
         console.error("Error removing item from cart:", error.response?.data || error.message);
@@ -83,7 +83,7 @@ const StoreContextProvider = (props) => {
       const response = await axios.post(
         `${url}/api/cart/get`,
         {},
-        { headers: { token } }
+        { headers: { Authorization: `Bearer ${token}` } } // Use the correct Authorization header
       );
       setCartItems(response.data.cartData || {}); // Ensure cartItems is set to an empty object if data is undefined
     } catch (error) {
