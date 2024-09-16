@@ -5,7 +5,10 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const placeOrderByCard = async (req, res) => {
-  const frontend_url = process.env.FRONTEND_URL;
+
+  //const frontend_url = process.env.FRONTEND_URL;
+  const frontend_url = "https://food-delivery-app-frontend-zn5p.onrender.com";
+
   try {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ success: false, message: "User not authenticated" });
