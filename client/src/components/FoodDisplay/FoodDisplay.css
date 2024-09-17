@@ -3,7 +3,7 @@
 }
 
 .food-display h2 {
-  font-size: max(2.5vw, 25px);
+  font-size: max(2.5vw, 25px); /* Responsive font size based on viewport */
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -11,7 +11,6 @@
 .food-display-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Default: 2 columns for mobile */
-  gap: 30px;
 }
 
 /* Tablets (min-width: 640px) */
@@ -24,6 +23,13 @@
 /* Laptops (min-width: 1024px) */
 @media (min-width: 1024px) {
   .food-display-list {
-    grid-template-columns: repeat(4, 1fr); /* 4 columns for laptops and above */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for laptops and larger screens */
+  }
+}
+
+/* Desktops (min-width: 1280px) */
+@media (min-width: 1280px) {
+  .food-display-list {
+    grid-template-columns: repeat(5, 1fr); /* Optional: 5 columns for extra-large screens */
   }
 }
