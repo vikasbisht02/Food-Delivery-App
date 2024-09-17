@@ -11,7 +11,9 @@ const MyOrders = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(url + "/api/order/userOrders", {
-        headers: { token }
+        headers: {
+          Authorization: `Bearer ${token}`  // Pass token with Bearer prefix
+        }
       });
       setData(response.data.data);
     } catch (error) {
