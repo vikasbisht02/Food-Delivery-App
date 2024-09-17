@@ -13,11 +13,7 @@ const Orders = ({ url }) => {
   const fetchAllOrders = async () => {
     try {
       // Add the token to the request header
-      const response = await axios.get(`${url}/api/order/list`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token in the Authorization header
-        },
-      });
+      const response = await axios.get(`${url}/api/order/list`)
       if (response.data.success) {
         // Ensure response.data.data is an array
         setOrders(Array.isArray(response.data.data) ? response.data.data : []);
