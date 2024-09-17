@@ -120,6 +120,7 @@ const listOrders = async (req, res) => {
   }
 };
 
+
 const updateStatus = async (req, res) => {
   try {
     await orderModel.findByIdAndUpdate(req.body.orderId, {
