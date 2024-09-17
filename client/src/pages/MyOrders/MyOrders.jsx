@@ -10,7 +10,7 @@ const MyOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(url + "/api/order/userOrders", {
+      const response = await axios.post(url + "/api/order/userOrders", {
         headers: {
           Authorization: `Bearer ${token}`  // Pass token with Bearer prefix
         }
