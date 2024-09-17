@@ -1,14 +1,3 @@
-/* Main container for food items */
-.food-items-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* By default, one column */
-  gap: 20px;
-  padding: 20px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-
 .food-item {
   width: 100%;
   margin: auto;
@@ -82,20 +71,5 @@
 }
 
 .food-item-counter img {
-  width: 30px;
-}
-
-
-
-/* For screens wider than 640px, show two food items per row */
-@media (min-width: 640px) {
-  .food-items-container {
-    grid-template-columns: repeat(3, 1fr); /* Two columns */
-  }
-}
-
-@media (min-width: 430px) {
-  .food-items-container {
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-  }
+    width: 30px;
 }
