@@ -53,7 +53,7 @@
   width: 35px;
   position: absolute;
   bottom: 15px;
-  right: 15px;
+  right: 30px;
   cursor: pointer;
   border-radius: 50%;
 }
@@ -140,11 +140,11 @@
   }
 
   .food-item-img-container .add {
-    width: 45px;
+    width: 30px;
   }
 
   .food-item-counter img {
-    width: 40px;
+    width: 30px;
   }
 }
 
@@ -167,10 +167,10 @@
   }
 
   .food-item-img-container .add {
-    width: 50px;
+    width: 30px;
   }
 
   .food-item-counter img {
-    width: 45px;
+    width: 30px;
   }
 }
