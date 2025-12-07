@@ -1,5 +1,5 @@
 <h1 align="center"><a href="https://linkedin-clone-i11c.onrender.com" target="_blank">Food Delivery App Clone "Client" ✨</a></h1>
-<h1 align="center"><a href="https://food-delivery-app-admin-waho.onrender.com" target="_blank">Food Delivery App Clone "Client" ✨</a></h1>
+<h1 align="center"><a href="https://food-delivery-app-admin-waho.onrender.com" target="_blank">Food Delivery App Clone "Admin" ✨</a></h1>
 
 ![Demo App]("https://cdn.buymeacoffee.com/uploads/rewards/2024-03-14/1/114451_Full_Stack_Food_Delivery_Website_Using_React_JS_Step_by_Step_Tutorial.png@1200w_0e.png")
 
